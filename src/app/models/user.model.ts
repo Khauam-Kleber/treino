@@ -5,6 +5,7 @@ export class User {
     nome: string;
     senha: string;
     email: string;
+    time: any;
     // steamItems: SteamItem[];
-    access_token: string;
+    token: string;
 }
