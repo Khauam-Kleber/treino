@@ -22,7 +22,7 @@ export class UsersService {
         this.user = this.userSubject.asObservable();
     }
 
-    public get userValue(): User {
+    public get userValue(): any {
         return this.userSubject.value;
     }
 

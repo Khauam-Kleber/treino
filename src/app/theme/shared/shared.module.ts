@@ -11,11 +11,15 @@ import {ClickOutsideModule} from 'ng-click-outside';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import { MatTableModule } from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import 'hammerjs';
 import 'mousetrap';
 import {GalleryModule} from '@ks89/angular-modal-gallery';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -35,7 +39,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ClickOutsideModule,
     MatTableModule,
     MatSortModule,
-    MatDialogModule 
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule,
+    FlexLayoutModule,
+    NgSelectModule
   ],
   exports: [
     CommonModule,
@@ -54,7 +64,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SpinnerComponent,
     MatTableModule,
     MatSortModule,
-    MatDialogModule 
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule,
+    FlexLayoutModule,
+    NgSelectModule
   ],
   declarations: [
     DataFilterPipe,

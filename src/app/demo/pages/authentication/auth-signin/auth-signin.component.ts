@@ -12,8 +12,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class AuthSigninComponent implements OnInit {
 
-  emailDB: string = "email@teste.com";
-  senhaDB: string = "12345678";
   form;
   loading = false;
   submitted = false;
