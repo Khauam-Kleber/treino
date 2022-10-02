@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatSort, Sort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { SteamItem } from 'src/app/models/steamItem.model';
-import { ItensService } from 'src/app/services/itens.service';
+import { PartidaService } from 'src/app/services/partida.service';
 import { UsersService } from 'src/app/services/users.service';
+import { PartidaFormComponent } from '../partida-form/partida-form.component';
 //https://steamcommunity.com/sharedfiles/filedetails/?id=2164283242 drop ativo de caixa
 @Component({
   selector: 'itens-table',
@@ -15,20 +17,20 @@ export class ItensTableComponent implements OnInit {
   
   // displayedColumns: string[] = ['favoritar', 'name', 'media7dias', 'media30dias']; //usar quando buscar do banco?
 
-  displayedColumns: string[] = ['favoritar', 'name', 'differenceComparedToYesterday', 'trendMonthPercentage', 'trendYearPercentage', 'totalSales', 'marketQuantity', 'weeklySales', 'porcentagemVenda',  'medianMonth', 'marketPrice'];
+  displayedColumns: string[] = ['timeContra', 'placar'];
 
   dataSource = new MatTableDataSource<any>();
   playerName: string = '';
   term: string = '';
   tipoItemFiltro: any = 1;
-  tiposItens = [{nome: 'Nada', value: 0}, {nome: 'Caixa', value: 1},  {nome: 'Capsula', value: 2}, {nome: 'Adesivo', value: 3},  {nome: 'Agentes', value: 4}]
+  // tiposItens = [{nome: 'Nada', value: 0}, {nome: 'Caixa', value: 1},  {nome: 'Capsula', value: 2}, {nome: 'Adesivo', value: 3},  {nome: 'Agentes', value: 4}]
   private sort = new MatSort();
   @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSourceAttributes();
   }
   
-  constructor(private service:ItensService, public itensService: ItensService) {}
+  constructor(private partidaService:PartidaService, public itensService: PartidaService,  public dialog: MatDialog) {}
  
 
   ngOnInit() {
@@ -46,7 +48,8 @@ export class ItensTableComponent implements OnInit {
 
 
   fazBuscaItens(){
-    // this.service.getItensMercadoSteam(this.term, this.tipoItemFiltro).subscribe((response:any) => this.dataSource = new MatTableDataSource(response.data) );
+    // this.term
+    this.partidaService.buscarPartidasTime().subscribe((response:any) => this.dataSource = new MatTableDataSource(response.content) );
     this.dataSource.sort = this.sort;  
 
     setTimeout(() => {
@@ -55,25 +58,15 @@ export class ItensTableComponent implements OnInit {
 
   }
 
-  verificarRaridadeCaixa(nome: string){ //achar um meio de deixar automatizado essa validação 
-    if(this.tipoItemFiltro == 1){
-      if(nome == "Recoil Case" || nome == 'Dreams & Nightmares Case' || nome == 'Snakebite Case' || nome == 'Fracture Case' || nome == 'Clutch Case'){
-        //dropando normal
-        return 'vermelho';
-      }else if(nome == "Prisma 2 Case"  || nome == 'CS20 Case'  || nome == 'Prisma Case' || nome == 'Danger Zone Case'  || nome == 'Horizon Case'   || nome == 'Spectrum 2 Case' 
-       || nome == 'Operation Hydra Case'  || nome == 'Spectrum Case'  || nome == 'Glove Case'  || nome == 'Gamma 2 Case'  || nome == 'Gamma Case' || nome == 'Chroma 3 Case' || nome == 'Operation Wildfire Case' || nome == 'Revolver Case'
-       || nome == 'Shadow Case' || nome == 'Falchion Case' || nome == 'Chroma 2 Case' || nome == 'Chroma Case' || nome == 'Operation Vanguard Weapon Case' || nome == 'Operation Breakout Weapon Case' || nome == 'Huntsman Weapon Case'
-       || nome == 'Operation Phoenix Weapon Case' || nome == 'CS:GO Weapon Case 3' || nome == 'Winter Offensive Weapon Case' || nome == 'CS:GO Weapon Case 2' || nome == 'Operation Bravo Case' || nome == 'CS:GO Weapon Case'){
-        //drop raro
-        return 'azul';
-      }else{
-        return 'verde';
-        //não dropa mais
-      }
-    }
-    return ''
+  cadastrarPartida(event): void {
+    const dialogRef = this.dialog.open(PartidaFormComponent, {
+      width: '250px',
+      data: {item: event},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // this.itensService.buscarListaFavoritos(true);
+    });
   }
-
-
 
 }
