@@ -1,0 +1,23 @@
+<div mat-dialog-content>
+    <!-- <p>Coloque a Quantidade e Preço da compra dos itens</p> -->
+    <form [formGroup]="form" (ngSubmit)="salvarPartida()" > 
+      <div class="form-group">
+        <label>Time Contra:</label>
+        <ng-select  formControlName="times" addTagText="Criar Novo" [addTag]="criarNovoTime.bind(this)"  (remove)="removerTime($event)" [multiple]="true"
+            [items]="timesList" bindLabel="nome" bindValue="id">
+        </ng-select>
+      </div>
+      <div fxLayout="row"  fxLayoutAlign="space-between center" class="mb-3">
+        <input fxFlex="45" type="number" formControlName="placarTimeContra" class="form-control" placeholder="Pontos Time Contra">
+        <input fxFlex="45" type="number" formControlName="placarTimePrincipal" class="form-control" placeholder="Pontos Nosso Time ">
+      </div>
+      <div class="input-group mb-3">
+        <textarea type="text" formControlName="resumoDosAprendizados" class="form-control" placeholder="Resumo Aprendizado"></textarea>
+      </div>
+      <div class="input-group mb-3">
+        <input type="text" formControlName="roundsObservar" class="form-control" placeholder="Rounds à Observar ">
+      </div>
+      <button  class="btn btn-primary mb-4" type="submit" >
+        Salvar</button>
+    </form>
+  </div>

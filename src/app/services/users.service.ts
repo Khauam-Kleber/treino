@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { User } from '../models/user.model';
 import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -10,15 +9,15 @@ import { Router } from '@angular/router';
     providedIn: 'root'
 })
 export class UsersService {
-    private userSubject: BehaviorSubject<User>;
-    public user: Observable<User>;
+    private userSubject: BehaviorSubject<any>;
+    public user: Observable<any>;
     public favoritos: any = [];
 
     constructor(
         private http: HttpClient,
         private router: Router,
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        this.userSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
     }
 
@@ -27,7 +26,7 @@ export class UsersService {
     }
 
     login(email, senha) {
-        return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, senha })
+        return this.http.post<any>(`${environment.apiUrl}/auth/login`, { email, senha })
             .pipe(
                 // catchError(
                 //     (error) => {
@@ -53,33 +52,26 @@ export class UsersService {
         this.router.navigate(['/auth/signin']);
     }
 
-    create(user: User) {
-        return this.http.post<any>(`${environment.apiUrl}/usuario`, user)
+    create(user: any) {
+        return this.http.post<any>(`${environment.apiUrl}/usuario`, user) 
     }
 
     getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/usuario`);
+        return this.http.get<any[]>(`${environment.apiUrl}/usuario`);
     }
 
     getById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/usuario/${id}`);
+        return this.http.get<any>(`${environment.apiUrl}/usuario/${id}`);
     }
 
-    getFavoritemsUser() {
-        return this.http.get<any>(`${environment.apiUrl}/usuario/find-favorites/${this.userValue['data'].id}`);
+    
+    remove(id: string) {
+        return this.http.delete<any>(`${environment.apiUrl}/usuario/${id}`);
     }
 
     update(id, params) {
         return this.http.put(`${environment.apiUrl}/usuario/${id}`, params)
             .pipe(map(x => {
-                return x;
-            }));
-    }
-
-    updateFavorites(id, params) {
-        return this.http.put(`${environment.apiUrl}/usuario/update-favorites/${id}`, params)
-            .pipe(map(x => {
-
                 return x;
             }));
     }

@@ -73,6 +73,9 @@ export class AuthSignupComponent implements OnInit {
                 },
                 error => {
                     console.log(error)
+                    this.toastr.error('Erro!', 'Email já cadastrado', {
+                        positionClass: "toast-top-center",
+                    });
                     this.loading = false;
                 });
     }

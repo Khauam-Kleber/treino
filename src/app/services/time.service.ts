@@ -23,8 +23,20 @@ export class TimeService {
         return this.http.get<any[]>(`${environment.apiUrl}/time`);
     }
 
+    buscarUsuariosMembros(id) {
+        return this.http.get<any[]>(`${environment.apiUrl}/usuario/time-membros/${id}`);
+    }
+
+    buscarTimesContras() {
+        return this.http.get<any[]>(`${environment.apiUrl}/time/times-contra`);
+    }
+
     getById(id: string) {
         return this.http.get<any>(`${environment.apiUrl}/time/${id}`);
+    }
+
+    remove(id: string) {
+        return this.http.delete<any>(`${environment.apiUrl}/time/${id}`);
     }
 
     update(id, params) {

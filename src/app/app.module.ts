@@ -22,7 +22,7 @@ import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-se
 import { NavRightComponent } from './theme/layout/admin/nav-bar/nav-right/nav-right.component';
 import { ConfigurationComponent } from './theme/layout/admin/configuration/configuration.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ItensService } from './services/itens.service';
+import { PartidaService } from './services/partida.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
@@ -61,7 +61,7 @@ import { TimeFormComponent } from './demo/pages/time/time-form/time-form.compone
   providers: [
     NavigationItem, 
     HttpClientModule,
-    ItensService,
+    PartidaService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

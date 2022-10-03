@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ItensService } from 'src/app/services/itens.service.js';
+import { PartidaService } from 'src/app/services/partida.service.js';
 import { ActivatedRoute } from '@angular/router';
 import { SkinDialogForm } from '../../pages/itens-table/skin-dialog-form/skin-dialog-form.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class DefaultComponent implements OnInit {
 
-  constructor(public itensService: ItensService,  private route: ActivatedRoute, public dialog: MatDialog) 
+  constructor(public partidaService: PartidaService,  private route: ActivatedRoute, public dialog: MatDialog) 
   {    
  
   }

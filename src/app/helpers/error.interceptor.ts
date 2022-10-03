@@ -16,7 +16,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // this.accountService.refreshToken().subscribe((response:any) => this.refresh = false );
             }
             
-            const error = err.error.message || err.statusText;
+            console.log(err.error)
+            const error = err.error.message || err.error.mensagem  || err.statusText;
             return throwError(error);
         }))
     }

@@ -15,16 +15,19 @@ export class TimeFormComponent implements OnInit {
   time;
   form;
   submitted = false;
-  usuariosList = [{ id: 1, nome: 'Volvo' },
-  { id: 2, nome: 'Saab' },
-  { id: 3, nome: 'Opel' },
-  { id: 4, nome: 'Audi' }];
+  usuariosList = [];
+  // [{ id: 1, nome: 'Volvo' },
+  // { id: 2, nome: 'Saab' },
+  // { id: 3, nome: 'Opel' },
+  // { id: 4, nome: 'Audi' }];
 
   constructor(private formBuilder: FormBuilder, private timeService: TimeService, private toastr: ToastrService, private usuarioService: UsersService) {
     // this.criarForm();
     if (this.usuarioService.userValue.data.time) {
+      this.buscarMembrosTime(this.usuarioService.userValue.data.time.id);
       this.timeService.getById(this.usuarioService.userValue.data.time.id).subscribe(
         data => {
+          console.log(data);
           this.criarForm(data);
         },
         error => {
@@ -39,16 +42,18 @@ export class TimeFormComponent implements OnInit {
   ngOnInit(): void {
     //verificar se usuario ja tem time, caso tenha puxar os dados e setar no form
 
-
   }
 
   criarForm(time?) {
-    var data = time.usuarios.map(function(obj) {
-      return obj.id;
-    });
+    var data = []
+    if (time && time.usuarios) {
+      data = time.usuarios.map(function (obj) {
+        return obj.id;
+      });
+    }
     this.form = this.formBuilder.group({
-      id: [time.id],
-      nome: [time.nome, Validators.required],
+      id: [time ? time.id : ''],
+      nome: [time ? time.nome : '', Validators.required],
       usuarios: [data],
     });
   }
@@ -56,9 +61,45 @@ export class TimeFormComponent implements OnInit {
   get f() { return this.form.controls; }
 
 
-  CreateNew(city) {
-    //adicionar usuario membro no time
+  criarNovoMembro(membro) {
+    let novoUser = { id: null, nome: membro, time: { id: this.form.get("id").value } }
+    this.usuarioService.create(novoUser)
+      // .pipe(first())
+      .subscribe(
+        data => {
+          this.usuariosList.push(data);
+          this.usuariosList = [...this.usuariosList]
+          console.log(this.usuariosList)
+          // this.toastr.success('Faça o login!', 'Cadastrado com Sucesso', {
+          //     positionClass: "toast-top-center",
+          // });
+        },
+        error => {
+          this.toastr.error("Nome já existe", 'Erro!', {
+            positionClass: "toast-top-center",
+          });
+          // this.loading = false;
+        });
   }
+
+  removerMembro(event) {
+    console.log(event);
+
+    this.usuarioService.remove(event.value.id)
+      .subscribe(
+        data => {
+          this.toastr.success('Membro removido com Sucesso', 'Removido!', {
+              positionClass: "toast-top-center",
+          });
+        },
+        error => {
+          // this.toastr.error("Nome já existe", 'Erro!', {
+          //   positionClass: "toast-top-center",
+          // });
+          // this.loading = false;
+        });
+  }
+
 
   salvar() {
     this.submitted = true;
@@ -67,10 +108,22 @@ export class TimeFormComponent implements OnInit {
       return;
     }
 
+
+    let dados = this.form.value;
+    if (dados.usuarios != undefined) {
+
+      let data = dados.usuarios.map(function (obj) {
+        return { id: obj.id };
+      });
+
+      dados.usuarios = data;
+    }
+
+
     // this.loading = true;
     if (this.form.get("id").value) {
       //editar
-      this.timeService.update(this.form.get("id").value, this.form.value)
+      this.timeService.update(this.form.get("id").value, dados)
         // .pipe(first())
         .subscribe(
           data => {
@@ -83,7 +136,7 @@ export class TimeFormComponent implements OnInit {
             // this.loading = false;
           });
     } else {
-      this.timeService.create(this.form.value)
+      this.timeService.create(dados)
         // .pipe(first())
         .subscribe(
           data => {
@@ -98,6 +151,19 @@ export class TimeFormComponent implements OnInit {
           });
     }
     console.log(this.form.value)
+  }
+
+  buscarMembrosTime(id) {
+    this.timeService.buscarUsuariosMembros(id)
+      .subscribe(
+        data => {
+          // console.log(data)
+          this.usuariosList = data;
+        },
+        error => {
+          console.log(error)
+          // this.loading = false;
+        });
   }
 
 }

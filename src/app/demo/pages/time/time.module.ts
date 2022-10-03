@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItensService } from 'src/app/services/itens.service';
+import { PartidaService } from 'src/app/services/partida.service';
 import { TimeRoutingModule } from './time-routing.module';
 
 
@@ -11,7 +11,7 @@ import { TimeRoutingModule } from './time-routing.module';
   ],
   declarations: [],
   providers:[
-    // ItensService
+    PartidaService
   ]
 })
 export class TimeModule { }

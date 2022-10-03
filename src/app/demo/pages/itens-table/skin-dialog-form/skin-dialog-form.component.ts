@@ -1,9 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UsersService } from "src/app/services/users.service";
-import { SteamItem } from "src/app/models/steamItem.model";
-import { ItensService } from "src/app/services/itens.service";
+import { PartidaService } from "src/app/services/partida.service";
 
 @Component({
     selector: 'skin-dialog',
@@ -12,7 +10,7 @@ import { ItensService } from "src/app/services/itens.service";
   export class SkinDialogForm {
     constructor(
       private formBuilder:FormBuilder, 
-      private itensService: ItensService,
+      private itensService: PartidaService,
       public dialogRef: MatDialogRef<SkinDialogForm>,
       @Inject(MAT_DIALOG_DATA) public data: any,
     ) {  
@@ -41,7 +39,6 @@ import { ItensService } from "src/app/services/itens.service";
     saveQuantityPurchase(){
       this.data.item.quantityPurchased = this.form.get('quantity').value
       this.data.item.pricePurchased = this.form.get('price').value
-      // this.itensService.atualizarQuantidadeFavoritos(this.data.item)
       this.dialogRef.close()
     }
 

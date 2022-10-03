@@ -12,11 +12,12 @@
                     </div>
                 </div>
                 <div *ngIf="f.id.value" class="form-group">
-                    <ng-select  formControlName="usuarios" addTagText="Create New" [addTag]="CreateNew" [multiple]="true"
+                    <label>Membros:</label>
+                    <ng-select  formControlName="usuarios" addTagText="Criar Novo" [addTag]="criarNovoMembro.bind(this)"  (remove)="removerMembro($event)" [multiple]="true"
                         [items]="usuariosList" bindLabel="nome" bindValue="id">
                     </ng-select>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">{{f.id.value ? 'Editar' : 'Salvar'}}</button>
             </form>
         </div>
         <!-- <div class="col-md-6">
