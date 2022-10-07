@@ -1,12 +1,13 @@
 # Sistema para Estudo;
 
  Sistema criado por https://www.linkedin.com/in/khauam/ como forma de estudo das ferramentas Angular + NestJs + MongoDB
+ -> Reactive forms
+ -> NG Select
+ -> Material Table
+ -> API's
+ -> JWT token
  
- Trata-se de um sistema de monitoramento de investimento feito no mercado da STEAM onde as skins/adesivos/caixas tem um rendimento significativo ao longo dos anos, temos uma tabela principal que podemos acessar todos os itens do mercado e verificar sua variação de preço diario/mensal/anual alem de poder acompanhar a oferta e demanda dos menos para uma análise mais precisa, nessa tabela podemos selecionar os itens favoritos que aparecerão no dashboard principal onde podemos colocar a quantidade e o preço que o item foi comprado e assim acompanhar tmb o rendimento pessoal do investidor;
-
-Como uso API's Publicas grátis o numero de itens do dashboard é limitado para não gerar erros de timeout;
-
-Demo: https://rey-invest.herokuapp.com/ vai funcionar ate novembro de 2022 pois o herokuapp não vai deixar mais hospedar de graça. 
+ Trata-se de um sistema para gerenciamento de treinos de time eSport FPS, onde criamos o time e cadastramos as partidas e fazemos o monitoramento de resultados, os campos principais são rounds chave e principais mudanças que devemos acompanhar para melhorar o desempenho, alem de ver o desempenho individual dos players.
 
 # NgDattaAble TEMA
 
