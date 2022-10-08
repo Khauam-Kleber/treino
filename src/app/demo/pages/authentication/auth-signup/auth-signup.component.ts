@@ -32,9 +32,9 @@ export class AuthSignupComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            nome: ['', Validators.required],
+            name: ['', Validators.required],
             email: ['', Validators.required],
-            senha: ['', [Validators.required, Validators.minLength(6)]]
+            password: ['', [Validators.required, Validators.minLength(6)]]
         });
     }
 

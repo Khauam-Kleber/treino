@@ -59,6 +59,7 @@ import { TimeFormComponent } from './demo/pages/time/time-form/time-form.compone
     ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
+
     NavigationItem, 
     HttpClientModule,
     PartidaService,

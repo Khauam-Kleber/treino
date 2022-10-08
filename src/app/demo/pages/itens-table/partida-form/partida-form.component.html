@@ -4,7 +4,7 @@
       <div class="form-group">
         <label>Time Contra:</label>
         <ng-select  formControlName="times" addTagText="Criar Novo" [addTag]="criarNovoTime.bind(this)"  (remove)="removerTime($event)" [multiple]="true"
-            [items]="timesList" bindLabel="nome" bindValue="id">
+            [items]="timesList" bindLabel="name" bindValue="id">
         </ng-select>
       </div>
       <div fxLayout="row"  fxLayoutAlign="space-between center" class="mb-3">

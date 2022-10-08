@@ -10,9 +10,9 @@ export class NavLeftComponent implements OnInit {
 
   constructor(private usersService: UsersService) { }
 
-  nome; 
+  name; 
   ngOnInit() {
-    this.nome = this.usersService.userValue['data'].nome
+    this.name = this.usersService.userValue['data'].name
   }
 
 }

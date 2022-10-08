@@ -25,8 +25,8 @@ export class UsersService {
         return this.userSubject.value;
     }
 
-    login(email, senha) {
-        return this.http.post<any>(`${environment.apiUrl}/auth/login`, { email, senha })
+    login(email, password) {
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, { email, password })
             .pipe(
                 // catchError(
                 //     (error) => {
@@ -34,6 +34,7 @@ export class UsersService {
                 //       return of(error);
                 // }),
                 map(res => {
+                    console.log(res)
                     this.updateCurrentUser(res);
                     return res;
                 }));
@@ -53,24 +54,24 @@ export class UsersService {
     }
 
     create(user: any) {
-        return this.http.post<any>(`${environment.apiUrl}/usuario`, user) 
+        return this.http.post<any>(`${environment.apiUrl}/users`, user) 
     }
 
     getAll() {
-        return this.http.get<any[]>(`${environment.apiUrl}/usuario`);
+        return this.http.get<any[]>(`${environment.apiUrl}/users`);
     }
 
     getById(id: string) {
-        return this.http.get<any>(`${environment.apiUrl}/usuario/${id}`);
+        return this.http.get<any>(`${environment.apiUrl}/users/${id}`);
     }
 
     
     remove(id: string) {
-        return this.http.delete<any>(`${environment.apiUrl}/usuario/${id}`);
+        return this.http.delete<any>(`${environment.apiUrl}/users/${id}`);
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/usuario/${id}`, params)
+        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
             .pipe(map(x => {
                 return x;
             }));

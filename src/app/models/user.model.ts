@@ -1,11 +1,9 @@
-import { SteamItem } from "./steamItem.model";
 
 export class User {
     id: string;
-    nome: string;
-    senha: string;
+    name: string;
+    password: string;
     email: string;
-    time: any;
-    // steamItems: SteamItem[];
+    teamId: string;
     token: string;
 }

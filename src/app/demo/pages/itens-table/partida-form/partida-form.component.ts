@@ -61,7 +61,7 @@ export class PartidaFormComponent implements OnInit {
   }
 
   criarNovoTime(time) {
-    let novoTime = { id: null, nome: time, timePai: { id: this.usuarioService.userValue.data.time.id } }
+    let novoTime = { id: null, name: time, timePai: { id: this.usuarioService.userValue.data.time.id } }
     this.timeService.create(novoTime)
       .subscribe(
         data => {

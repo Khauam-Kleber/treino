@@ -14,9 +14,9 @@
         <h3 class="mb-4">Sign up</h3>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" formControlName="nome" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.nome.errors }">
-            <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
-              <div *ngIf="f.nome.errors.required">Username is required</div>
+            <input type="text" class="form-control" formControlName="name" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Username is required</div>
           </div>
           </div>
           <div class="input-group mb-3">
@@ -26,22 +26,22 @@
           </div>
           </div>
           <div class="input-group mb-4">
-            <input type="password" class="form-control" formControlName="senha" placeholder="Senha" [ngClass]="{ 'is-invalid': submitted && f.senha.errors }">
-            <div *ngIf="submitted && f.senha.errors" class="invalid-feedback">
-              <div *ngIf="f.senha.errors.required">Password is required</div>
-              <div *ngIf="f.senha.errors.minlength">Password must be at least 6 characters</div>
+            <input type="password" class="form-control" formControlName="password" placeholder="Senha" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
           </div>
           </div>
      
           <!-- <div class="form-group text-left">
             <div class="checkbox checkbox-fill d-inline">
-              <input type="checkbox" nome="checkbox-fill-1" id="checkbox-fill-1" checked="">
+              <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-1" checked="">
               <label for="checkbox-fill-1" class="cr"> Save Details</label>
             </div>
           </div>
           <div class="form-group text-left">
             <div class="checkbox checkbox-fill d-inline">
-              <input type="checkbox" nome="checkbox-fill-2" id="checkbox-fill-2">
+              <input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2">
               <label for="checkbox-fill-2" class="cr">Send me the <a href="javascript:"> Newsletter</a> weekly.</label>
             </div>
           </div> -->

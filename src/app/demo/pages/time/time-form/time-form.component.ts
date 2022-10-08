@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { TimeService } from 'src/app/services/time.service';
 import { UsersService } from 'src/app/services/users.service';
 
+
 @Component({
   selector: 'app-time-form',
   templateUrl: './time-form.component.html',
@@ -12,22 +13,21 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class TimeFormComponent implements OnInit {
 
-  time;
+  team;
   form;
   submitted = false;
   usuariosList = [];
-  // [{ id: 1, nome: 'Volvo' },
-  // { id: 2, nome: 'Saab' },
-  // { id: 3, nome: 'Opel' },
-  // { id: 4, nome: 'Audi' }];
+  // [{ _id: 1, name: 'Volvo' },
+  // { _id: 2, name: 'Saab' },
+  // { _id: 3, name: 'Opel' },
+  // { _id: 4, name: 'Audi' }];
 
   constructor(private formBuilder: FormBuilder, private timeService: TimeService, private toastr: ToastrService, private usuarioService: UsersService) {
     // this.criarForm();
-    if (this.usuarioService.userValue.data.time) {
-      this.buscarMembrosTime(this.usuarioService.userValue.data.time.id);
-      this.timeService.getById(this.usuarioService.userValue.data.time.id).subscribe(
+    if (this.usuarioService.userValue.data.teamId) {
+      this.buscarMembrosTime(this.usuarioService.userValue.data.teamId);
+      this.timeService.getById(this.usuarioService.userValue.data.teamId).subscribe(
         data => {
-          console.log(data);
           this.criarForm(data);
         },
         error => {
@@ -40,21 +40,21 @@ export class TimeFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //verificar se usuario ja tem time, caso tenha puxar os dados e setar no form
+    //verificar se usuario ja tem team, caso tenha puxar os dados e setar no form
 
   }
 
-  criarForm(time?) {
+  criarForm(team?) {
     var data = []
-    if (time && time.usuarios) {
-      data = time.usuarios.map(function (obj) {
-        return obj.id;
+    if (team && team.users) {
+      data = team.users.map(function (obj) {
+        return obj._id;
       });
     }
     this.form = this.formBuilder.group({
-      id: [time ? time.id : ''],
-      nome: [time ? time.nome : '', Validators.required],
-      usuarios: [data],
+      _id: [team ? team._id : ''],
+      name: [team ? team.name : '', Validators.required],
+      users: [data],
     });
   }
   // convenience getter for easy access to form fields
@@ -62,14 +62,21 @@ export class TimeFormComponent implements OnInit {
 
 
   criarNovoMembro(membro) {
-    let novoUser = { id: null, nome: membro, time: { id: this.form.get("id").value } }
+    let novoUser = { _id: null, name: membro, team: { _id: this.form.get("_id").value } }
     this.usuarioService.create(novoUser)
       // .pipe(first())
       .subscribe(
         data => {
           this.usuariosList.push(data);
           this.usuariosList = [...this.usuariosList]
-          console.log(this.usuariosList)
+          // this.form.get('users').setValue();
+
+          let valoresSelecionados = this.form.get('users').value;
+          console.log(valoresSelecionados)
+          valoresSelecionados.push(data._id);
+          console.log(valoresSelecionados)
+          this.form.get('users').setValue(valoresSelecionados)
+
           // this.toastr.success('Faça o login!', 'Cadastrado com Sucesso', {
           //     positionClass: "toast-top-center",
           // });
@@ -85,7 +92,7 @@ export class TimeFormComponent implements OnInit {
   removerMembro(event) {
     console.log(event);
 
-    this.usuarioService.remove(event.value.id)
+    this.usuarioService.remove(event.value._id)
       .subscribe(
         data => {
           this.toastr.success('Membro removido com Sucesso', 'Removido!', {
@@ -113,7 +120,7 @@ export class TimeFormComponent implements OnInit {
     if (dados.usuarios != undefined) {
 
       let data = dados.usuarios.map(function (obj) {
-        return { id: obj.id };
+        return { _id: obj._id };
       });
 
       dados.usuarios = data;
@@ -121,9 +128,9 @@ export class TimeFormComponent implements OnInit {
 
 
     // this.loading = true;
-    if (this.form.get("id").value) {
+    if (this.form.get("_id").value) {
       //editar
-      this.timeService.update(this.form.get("id").value, dados)
+      this.timeService.update(this.form.get("_id").value, dados)
         // .pipe(first())
         .subscribe(
           data => {
@@ -140,7 +147,10 @@ export class TimeFormComponent implements OnInit {
         // .pipe(first())
         .subscribe(
           data => {
-            this.form.get("id").setValue(data.id);
+            console.log(data)
+            this.form.get("_id").setValue(data._id);
+            this.usuarioService.userValue.data.teamId = data._id;
+
             this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
               positionClass: "toast-top-center",
             });
@@ -153,12 +163,13 @@ export class TimeFormComponent implements OnInit {
     console.log(this.form.value)
   }
 
-  buscarMembrosTime(id) {
-    this.timeService.buscarUsuariosMembros(id)
+  buscarMembrosTime(_id) {
+    this.timeService.buscarUsuariosMembros(_id)
       .subscribe(
         data => {
           // console.log(data)
           this.usuariosList = data;
+          this.usuariosList[0].disabled = true;
         },
         error => {
           console.log(error)
