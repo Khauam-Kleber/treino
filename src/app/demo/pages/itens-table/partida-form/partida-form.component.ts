@@ -14,6 +14,8 @@ import { ToastrService } from "ngx-toastr";
 export class PartidaFormComponent implements OnInit {
   form;
   timesList = [];
+  submitted = false;
+  isLinear = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,26 +26,22 @@ export class PartidaFormComponent implements OnInit {
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.buscarTimesContras(this.usuarioService.userValue.data.time.id);
+    this.buscarTimesContras(this.usuarioService.userValue.data.teamId);
 
     this.criarForm();
-    // this.itensService.buscarListaFavoritos();
   }
 
   ngOnInit(): void {
-    // throw new Error("Method not implemented.");
   }
-
-
 
   criarForm() {
     this.form = this.formBuilder.group({
-      id: [],
-      times: [[]],
-      placarTimeContra: [],
-      placarTimePrincipal: [],
-      resumoDosAprendizados: [],
-      roundsObservar: []
+      _id: [],
+      teamAgainst: [null, Validators.required],
+      scoreboardTeamAgainst: ['', Validators.required],
+      scoreboardTeamHome: ['', Validators.required],
+      learnings: [],
+      roundsToObserve: []
     });
 
     // this.form.controls['quantity'].setValue( this.data.item.quantityPurchased)
@@ -56,21 +54,57 @@ export class PartidaFormComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  salvarPartida(){
-    console.log(this.form.value);
+  salvarPartida() {
+    this.submitted = true;
+    if (this.form.invalid) {
+      console.log("invalido")
+      return;
+    }
+
+    // this.loading = true;
+    if (this.form.get("_id").value) {
+      //editar
+      this.partidaService.update(this.form.get("_id").value, this.form.value)
+        .subscribe(
+          data => {
+            this.toastr.success('Dados salvos', 'Editado com Sucesso!', {
+              positionClass: "toast-top-center",
+            });
+          },
+          error => {
+            console.log(error)
+            // this.loading = false;
+          });
+    } else {
+      this.partidaService.create(this.form.value)
+        .subscribe(
+          data => {
+            this.form.get("_id").setValue(data._id);
+
+            this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
+              positionClass: "toast-top-center",
+            });
+          },
+          error => {
+            console.log(error)
+            // this.loading = false;
+          });
+    }
+    console.log(this.form.value)
   }
 
+
   criarNovoTime(time) {
-    let novoTime = { id: null, name: time, timePai: { id: this.usuarioService.userValue.data.time.id } }
+    let novoTime = { _id: null, name: time, teamOwner: { _id: this.usuarioService.userValue.data.teamId } }
     this.timeService.create(novoTime)
       .subscribe(
         data => {
           this.timesList.push(data);
           this.timesList = [...this.timesList]
-     
+
         },
         error => {
-      
+
           // this.loading = false;
         });
   }
@@ -78,22 +112,19 @@ export class PartidaFormComponent implements OnInit {
   removerTime(event) {
     console.log(event);
 
-    this.timeService.remove(event.value.id)
+    this.timeService.remove(event.value._id)
       .subscribe(
         data => {
           this.toastr.success('Membro removido com Sucesso', 'Removido!', {
-              positionClass: "toast-top-center",
+            positionClass: "toast-top-center",
           });
         },
         error => {
-        
+
         });
   }
 
- 
-
-  
-  buscarTimesContras(id) {
+  buscarTimesContras(_id) {
     this.timeService.buscarTimesContras()
       .subscribe(
         data => {

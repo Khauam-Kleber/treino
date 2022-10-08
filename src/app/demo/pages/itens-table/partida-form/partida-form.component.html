@@ -1,23 +1,40 @@
-<div mat-dialog-content>
-    <!-- <p>Coloque a Quantidade e Preço da compra dos itens</p> -->
-    <form [formGroup]="form" (ngSubmit)="salvarPartida()" > 
-      <div class="form-group">
-        <label>Time Contra:</label>
-        <ng-select  formControlName="times" addTagText="Criar Novo" [addTag]="criarNovoTime.bind(this)"  (remove)="removerTime($event)" [multiple]="true"
-            [items]="timesList" bindLabel="name" bindValue="id">
-        </ng-select>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="form">
+    <ng-template matStepLabel>Partida</ng-template>
+    <div mat-dialog-content>
+        <!-- <p>Coloque a Quantidade e Preço da compra dos itens</p> -->
+        <form [formGroup]="form" (ngSubmit)="salvarPartida()" > 
+          <div class="form-group">
+            <label>Time Contra*:</label>
+            <ng-select  formControlName="teamAgainst" addTagText="Criar Novo" [addTag]="criarNovoTime.bind(this)"  (remove)="removerTime($event)" [multiple]="false"  
+                [ngClass]="{ 'is-invalid-select': submitted && f.teamAgainst.errors }" 
+                [items]="timesList" bindLabel="name" bindValue="_id">
+            </ng-select>
+          </div>
+          <div fxLayout="row"  fxLayoutAlign="space-between center" class="mb-3">
+            <input fxFlex="45" type="number" formControlName="scoreboardTeamAgainst" class="form-control" placeholder="Pontos Time Contra" [ngClass]="{ 'is-invalid': submitted && f.scoreboardTeamAgainst.errors }">
+            <input fxFlex="45" type="number" formControlName="scoreboardTeamHome" class="form-control" placeholder="Pontos Nosso Time " [ngClass]="{ 'is-invalid': submitted && f.scoreboardTeamHome.errors }">
+          </div>
+          <div class="input-group mb-3">
+            <textarea type="text" formControlName="learnings" class="form-control" placeholder="Resumo Aprendizado"></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" formControlName="roundsToObserve" class="form-control" placeholder="Rounds à Observar ">
+          </div>
+          <button  matStepperNext class="btn btn-primary mb-4" type="submit" >
+            Salvar</button>
+        </form>
       </div>
-      <div fxLayout="row"  fxLayoutAlign="space-between center" class="mb-3">
-        <input fxFlex="45" type="number" formControlName="placarTimeContra" class="form-control" placeholder="Pontos Time Contra">
-        <input fxFlex="45" type="number" formControlName="placarTimePrincipal" class="form-control" placeholder="Pontos Nosso Time ">
-      </div>
-      <div class="input-group mb-3">
-        <textarea type="text" formControlName="resumoDosAprendizados" class="form-control" placeholder="Resumo Aprendizado"></textarea>
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" formControlName="roundsObservar" class="form-control" placeholder="Rounds à Observar ">
-      </div>
-      <button  class="btn btn-primary mb-4" type="submit" >
-        Salvar</button>
-    </form>
-  </div>
+</mat-step>
+<!-- <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+
+</mat-step> -->
+<mat-step>
+    <ng-template matStepLabel>Individual</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -28,7 +28,7 @@ export class TimeService {
     }
 
     buscarTimesContras() {
-        return this.http.get<any[]>(`${environment.apiUrl}/teams/times-contra`);
+        return this.http.get<any>(`${environment.apiUrl}/teams/againsts/teams`);
     }
 
     getById(id: string) {

@@ -8,19 +8,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PartidaService { //partida service
+export class PartidaService { //matches service
 
   constructor( private http: HttpClient,){
     
   }
 
-  create(user: any) {
-    return this.http.post<any>(`${environment.apiUrl}/partida`, user)
+  create(match: any) {
+    return this.http.post<any>(`${environment.apiUrl}/matches`, match)
   }
 
   getAll() {
     // let params = 
-    return this.http.get<any[]>(`${environment.apiUrl}/partida/search?q=&page=${0}`,);
+    return this.http.get<any[]>(`${environment.apiUrl}/matches`,);
   }
 
   buscarPartidasTime(filter = '', id?: string, sort = 'id', sortOrder = 'desc', pageNumber = 0, pageSize = 10): Observable<any> {
@@ -33,7 +33,7 @@ export class PartidaService { //partida service
         stringBusca += `id:${id}`;
     }
   
-    return this.http.get<any>(`${environment.apiUrl}/partida/search?q=` + stringBusca, {
+    return this.http.get<any>(`${environment.apiUrl}/matches/search?q=` + stringBusca, {
         params: new HttpParams()
             .set('sort', sort + ',' + sortOrder)
             .set('page', pageNumber.toString())
@@ -47,17 +47,17 @@ export class PartidaService { //partida service
 
 
   getById(id: string) {
-    return this.http.get<any>(`${environment.apiUrl}/partida/${id}`);
+    return this.http.get<any>(`${environment.apiUrl}/matches/${id}`);
   }
 
 
   remove(id: string) {
-    return this.http.delete<any>(`${environment.apiUrl}/partida/${id}`);
+    return this.http.delete<any>(`${environment.apiUrl}/matches/${id}`);
   }
 
  
   update(id, params) {
-    return this.http.put<any>(`${environment.apiUrl}/partida/${id}`, params)
+    return this.http.put<any>(`${environment.apiUrl}/matches/${id}`, params)
       .pipe(map(x => {
         return x;
       }));

@@ -7,16 +7,29 @@
   <ng-container matColumnDef="timeContra">
     <th mat-header-cell *matHeaderCellDef mat-sort-header > Time contra </th>
     <td mat-cell *matCellDef="let element"> 
-      {{element.timeContra.name}} </td>
+      {{element.teamAgainst.name}} </td>
   </ng-container>
 
   
   <ng-container matColumnDef="placar">
     <th mat-header-cell *matHeaderCellDef mat-sort-header > Placar </th>
     <td mat-cell *matCellDef="let element"> 
-      {{element.placarTimeContra}} x {{element.placarTimePrincipal}} </td>
+      {{element.scoreboardTeamAgainst}} x {{element.scoreboardTeamHome}} </td>
   </ng-container>
 
+   
+  <ng-container matColumnDef="roundsToObserve" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header > Rounds a observar </th>
+    <td mat-cell *matCellDef="let element"> 
+      {{element.roundsToObserve}} </td>
+  </ng-container>
+
+   
+  <ng-container matColumnDef="learnings" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="width50" > Aprendizados </th>
+    <td mat-cell *matCellDef="let element" class="width50"> 
+      {{element.learnings}}</td>
+  </ng-container>
 
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

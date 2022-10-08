@@ -72,9 +72,7 @@ export class TimeFormComponent implements OnInit {
           // this.form.get('users').setValue();
 
           let valoresSelecionados = this.form.get('users').value;
-          console.log(valoresSelecionados)
           valoresSelecionados.push(data._id);
-          console.log(valoresSelecionados)
           this.form.get('users').setValue(valoresSelecionados)
 
           // this.toastr.success('Faça o login!', 'Cadastrado com Sucesso', {
@@ -147,9 +145,23 @@ export class TimeFormComponent implements OnInit {
         // .pipe(first())
         .subscribe(
           data => {
-            console.log(data)
             this.form.get("_id").setValue(data._id);
             this.usuarioService.userValue.data.teamId = data._id;
+            this.usuarioService.updateCurrentUser(this.usuarioService.userValue);
+
+
+            //buscar o usuario logado para a lista de usuarios
+            this.buscarMembrosTime(data._id);
+
+            //deixar global no componente
+            //colocar o usuario logado ja selecionado no select
+            let valoresSelecionados = this.form.get('users').value;
+            valoresSelecionados.push(data.users[0]._id);
+            this.form.get('users').setValue(valoresSelecionados)
+
+           
+
+
 
             this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
               positionClass: "toast-top-center",

@@ -15,7 +15,7 @@ export class ItensTableComponent implements OnInit {
   
   // displayedColumns: string[] = ['favoritar', 'name', 'media7dias', 'media30dias']; //usar quando buscar do banco?
 
-  displayedColumns: string[] = ['timeContra', 'placar'];
+  displayedColumns: string[] = ['timeContra', 'placar', 'roundsToObserve', 'learnings'];
 
   dataSource = new MatTableDataSource<any>();
   playerName: string = '';
@@ -47,7 +47,7 @@ export class ItensTableComponent implements OnInit {
 
   fazBuscaItens(){
     // this.term
-    this.partidaService.buscarPartidasTime().subscribe((response:any) => this.dataSource = new MatTableDataSource(response.content) );
+    this.partidaService.getAll().subscribe((response:any) => this.dataSource = new MatTableDataSource(response) );
     this.dataSource.sort = this.sort;  
 
     setTimeout(() => {
