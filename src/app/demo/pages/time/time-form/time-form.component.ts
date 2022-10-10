@@ -17,10 +17,6 @@ export class TimeFormComponent implements OnInit {
   form;
   submitted = false;
   usuariosList = [];
-  // [{ _id: 1, name: 'Volvo' },
-  // { _id: 2, name: 'Saab' },
-  // { _id: 3, name: 'Opel' },
-  // { _id: 4, name: 'Audi' }];
 
   constructor(private formBuilder: FormBuilder, private timeService: TimeService, private toastr: ToastrService, private usuarioService: UsersService) {
     // this.criarForm();
@@ -41,7 +37,6 @@ export class TimeFormComponent implements OnInit {
 
   ngOnInit(): void {
     //verificar se usuario ja tem team, caso tenha puxar os dados e setar no form
-
   }
 
   criarForm(team?) {
@@ -52,7 +47,7 @@ export class TimeFormComponent implements OnInit {
       });
     }
     this.form = this.formBuilder.group({
-      _id: [team ? team._id : ''],
+      _id: [team ? team._id : null],
       name: [team ? team.name : '', Validators.required],
       users: [data],
     });
@@ -149,7 +144,6 @@ export class TimeFormComponent implements OnInit {
             this.usuarioService.userValue.data.teamId = data._id;
             this.usuarioService.updateCurrentUser(this.usuarioService.userValue);
 
-
             //buscar o usuario logado para a lista de usuarios
             this.buscarMembrosTime(data._id);
 
@@ -158,10 +152,6 @@ export class TimeFormComponent implements OnInit {
             let valoresSelecionados = this.form.get('users').value;
             valoresSelecionados.push(data.users[0]._id);
             this.form.get('users').setValue(valoresSelecionados)
-
-           
-
-
 
             this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
               positionClass: "toast-top-center",
@@ -179,13 +169,11 @@ export class TimeFormComponent implements OnInit {
     this.timeService.buscarUsuariosMembros(_id)
       .subscribe(
         data => {
-          // console.log(data)
           this.usuariosList = data;
           this.usuariosList[0].disabled = true;
         },
         error => {
           console.log(error)
-          // this.loading = false;
         });
   }
 

@@ -13,9 +13,11 @@ import { ToastrService } from "ngx-toastr";
 })
 export class PartidaFormComponent implements OnInit {
   form;
+  formPerformace;
   timesList = [];
   submitted = false;
   isLinear = true;
+  usuariosList = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,19 +38,15 @@ export class PartidaFormComponent implements OnInit {
 
   criarForm() {
     this.form = this.formBuilder.group({
-      _id: [],
+      _id: [null],
       teamAgainst: [null, Validators.required],
       scoreboardTeamAgainst: ['', Validators.required],
       scoreboardTeamHome: ['', Validators.required],
       learnings: [],
       roundsToObserve: []
     });
-
-    // this.form.controls['quantity'].setValue( this.data.item.quantityPurchased)
-
   }
   get f() { return this.form.controls; }
-
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -93,7 +91,6 @@ export class PartidaFormComponent implements OnInit {
     console.log(this.form.value)
   }
 
-
   criarNovoTime(time) {
     let novoTime = { _id: null, name: time, teamOwner: { _id: this.usuarioService.userValue.data.teamId } }
     this.timeService.create(novoTime)
@@ -110,8 +107,6 @@ export class PartidaFormComponent implements OnInit {
   }
 
   removerTime(event) {
-    console.log(event);
-
     this.timeService.remove(event.value._id)
       .subscribe(
         data => {
@@ -137,5 +132,38 @@ export class PartidaFormComponent implements OnInit {
         });
   }
 
+  abaPerformace(event){
+    if(event.selectedIndex === 1){
+      this.buscarMembrosTime(this.usuarioService.userValue.data.teamId);
+      this.criarFormPerformace();
+    }
+  }
 
+  //talvez fazer o módulo de performace separado em outro componente para não gargalhar este!
+  criarFormPerformace() {
+    this.formPerformace = this.formBuilder.group({
+      _id: [null],
+      user: [null, Validators.required],
+      rating: ['', Validators.required],
+      kills: ['', Validators.required],
+      assists: ['', Validators.required],
+      deaths: ['', Validators.required],
+    });
+  }
+  get fperformace() { return this.form.controls; }
+
+  salvarPerformace(){
+    console.log( this.formPerformace.value)
+  }
+
+  buscarMembrosTime(_id) {
+    this.timeService.buscarUsuariosMembros(_id)
+      .subscribe(
+        data => {
+          this.usuariosList = data;
+        },
+        error => {
+          console.log(error)
+        });
+  }
 }

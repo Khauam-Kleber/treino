@@ -26,7 +26,6 @@ import { PartidaService } from './services/partida.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { TimeFormComponent } from './demo/pages/time/time-form/time-form.component';
 
 @NgModule({
   declarations: [

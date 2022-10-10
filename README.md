@@ -9,6 +9,8 @@
  
  Trata-se de um sistema para gerenciamento de treinos de time eSport FPS, onde criamos o time e cadastramos as partidas e fazemos o monitoramento de resultados, os campos principais são rounds chave e principais mudanças que devemos acompanhar para melhorar o desempenho, alem de ver o desempenho individual dos players.
 
+ Foi deixado os componentes to tema todo pois como estou estudando fica mais pratico para ir aplicando no sistema!
+
 # NgDattaAble TEMA
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
