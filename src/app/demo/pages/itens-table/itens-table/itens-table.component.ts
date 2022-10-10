@@ -56,15 +56,19 @@ export class ItensTableComponent implements OnInit {
 
   }
 
-  cadastrarPartida(event): void {
+  cadastrarPartida(item): void {
+    console.log(item)
     const dialogRef = this.dialog.open(PartidaFormComponent, {
       width: '1000px',
-      data: {item: event},
+      data: {partida: item},
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.fazBuscaItens();
+      //atualizar table
       // this.itensService.buscarListaFavoritos(true);
     });
   }
+
 
 }

@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 export class PartidaService { //matches service
 
   constructor( private http: HttpClient,){
-    
   }
 
   create(match: any) {
@@ -19,7 +18,6 @@ export class PartidaService { //matches service
   }
 
   getAll() {
-    // let params = 
     return this.http.get<any[]>(`${environment.apiUrl}/matches`,);
   }
 
@@ -50,11 +48,9 @@ export class PartidaService { //matches service
     return this.http.get<any>(`${environment.apiUrl}/matches/${id}`);
   }
 
-
   remove(id: string) {
     return this.http.delete<any>(`${environment.apiUrl}/matches/${id}`);
   }
-
  
   update(id, params) {
     return this.http.put<any>(`${environment.apiUrl}/matches/${id}`, params)
