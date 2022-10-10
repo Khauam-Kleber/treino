@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [linear]="f._id.value != null" #stepper (selectionChange)="abaPerformace($event)">
+<mat-horizontal-stepper [linear]="f._id.value == null" #stepper (selectionChange)="abaPerformace($event)">
   <mat-step [stepControl]="form">
     <ng-template matStepLabel>Partida</ng-template>
     <div mat-dialog-content>
@@ -24,19 +24,11 @@
         <div class="input-group mb-3">
           <input type="text" formControlName="roundsToObserve" class="form-control" placeholder="Rounds à Observar ">
         </div>
-        <button matStepperNext class="btn btn-primary mb-4" type="submit">
+        <button class="btn btn-primary mb-4" type="submit">
           Salvar</button>
       </form>
     </div>
   </mat-step>
-  <!-- <div [formGroup]="myGroup">
-    <div formArrayName="cities">
-      <div *ngFor="let city of cityArray.controls; index as i">
-        <input [formControlName]="i">
-      </div>
-    </div>
-  </div> -->
-
   <mat-step>
     <ng-template (click)="abaPerformace()" matStepLabel>Individual</ng-template>
     <button (click)="addPerformaceForm()" type="button" class="btn btn-icon btn-success"><i class="feather icon-plus"></i></button>
@@ -65,38 +57,5 @@
 
       </form>
     </div>
-
-    <!-- <form *ngIf="formPerformance != null" [formGroup]="formPerformance" (ngSubmit)="salvarPerformace()"> -->
-    <!-- <ng-container formArrayName="performances">
-        <div *ngFor="let performance of performances.controls; index as i">
-          <ng-container [formGroupName]="i">
-      
-
-        </div>
-      </ng-container> -->
-
-    <!-- <div fxLayout="row" fxLayoutAlign="space-between center"  class="mb-4">
-          <ng-select fxFlex="35" formControlName="user" [items]="usuariosList" bindLabel="name" bindValue="_id"
-            [ngClass]="{ 'is-invalid': submitted && fperformace(i).rating.errors }">
-          </ng-select>
-
-          <input fxFlex="15" type="rating" formControlName="rating" class="form-control" placeholder="Rating"
-            [ngClass]="{ 'is-invalid': submitted && fperformace(i).rating.errors }">
-
-          <input fxFlex="15" type="kills" formControlName="kills" class="form-control" placeholder="Kills"
-            [ngClass]="{ 'is-invalid': submitted && fperformace(i).kills.errors }">
-
-          <input fxFlex="15" type="assists" formControlName="assists" class="form-control" placeholder="Assists"
-            [ngClass]="{ 'is-invalid': submitted && fperformace(i).assists.errors }">
-
-          <input fxFlex="15" type="deaths" formControlName="deaths" class="form-control" placeholder="Deaths"
-            [ngClass]="{ 'is-invalid': submitted && fperformace(i).deaths.errors }">
-
-        </div> 
-
-        <button matStepperNext class="btn btn-primary mb-4" type="submit">
-          Salvar</button>-->
-    <!-- </form> -->
-
   </mat-step>
 </mat-horizontal-stepper>

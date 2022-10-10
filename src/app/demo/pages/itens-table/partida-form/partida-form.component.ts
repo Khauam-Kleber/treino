@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { PartidaService } from "src/app/services/partida.service";
@@ -6,6 +6,7 @@ import { UsersService } from "src/app/services/users.service";
 import { TimeService } from "src/app/services/time.service";
 import { ToastrService } from "ngx-toastr";
 import { PerformanceService } from "src/app/services/performance.service";
+import { MatStepper } from "@angular/material/stepper";
 
 @Component({
   selector: 'app-partida-form',
@@ -20,7 +21,7 @@ export class PartidaFormComponent implements OnInit {
   usuariosList = [];
   performances = new FormArray([]);
 
-
+  @ViewChild('stepper') myStepper: MatStepper;
   constructor(
     private formBuilder: FormBuilder,
     private partidaService: PartidaService,
@@ -42,7 +43,7 @@ export class PartidaFormComponent implements OnInit {
 
   criarForm(partida?) {
     this.form = this.formBuilder.group({
-      _id: [partida ? partida._id : null, Validators.required],
+      _id: [partida ? partida._id : null],
       teamAgainst: [partida.teamAgainst ? partida.teamAgainst._id : null, Validators.required],
       scoreboardTeamAgainst: [partida ? partida.scoreboardTeamAgainst : null, Validators.required],
       scoreboardTeamHome: [partida ? partida.scoreboardTeamHome : null, Validators.required],
@@ -57,6 +58,8 @@ export class PartidaFormComponent implements OnInit {
   }
 
   salvarPartida() {
+    console.log("salvar partida")
+    console.log(this.form.value);
     this.submitted = true;
     if (this.form.invalid) {
       console.log("invalido")
@@ -72,6 +75,10 @@ export class PartidaFormComponent implements OnInit {
             this.toastr.success('Dados salvos', 'Editado com Sucesso!', {
               positionClass: "toast-top-center",
             });
+
+            this.myStepper.next();
+
+            this.submitted = false;
           },
           error => {
             console.log(error)
@@ -86,6 +93,10 @@ export class PartidaFormComponent implements OnInit {
             this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
               positionClass: "toast-top-center",
             });
+
+            this.myStepper.next();
+
+            this.submitted = false;
           },
           error => {
             console.log(error)
@@ -135,28 +146,31 @@ export class PartidaFormComponent implements OnInit {
         });
   }
 
-  abaPerformace(event){
-    this.performanceService.getAllByMatchId(this.form.get("_id").value)
-    .subscribe(
-      data => {
-        data.forEach(performanceInstance => {
-          this.performances.push(this.criarFormPerformaces(performanceInstance))
-        });
+  abaPerformace(event) {
 
-     
-      },
-      error => {
-        console.log(error)
-        // this.loading = false;
-      });
-
-    if(event.selectedIndex === 1){
+    if (event.selectedIndex === 1) {
       this.buscarMembrosTime(this.usuarioService.userValue.data.teamId);
-     
+
+      this.performanceService.getAllByMatchId(this.form.get("_id").value)
+        .subscribe(
+          data => {
+            data.forEach(performanceInstance => {
+              this.performances.push(this.criarFormPerformaces(performanceInstance))
+            });
+
+          },
+          error => {
+            console.log(error)
+            // this.loading = false;
+          });
+
+    } else {
+      this.performances.clear()
+      // this.performances = new FormArray([]);
     }
   }
 
-  addPerformaceForm(){
+  addPerformaceForm() {
     this.performances.push(this.criarFormPerformaces())
   }
 
@@ -164,18 +178,18 @@ export class PartidaFormComponent implements OnInit {
   criarFormPerformaces(performanceInstance?) {
     return this.formBuilder.group({
       _id: [performanceInstance ? performanceInstance._id : null],
-      player: [performanceInstance ? performanceInstance.player._id : null, Validators.required],
+      player: [performanceInstance && performanceInstance.player ? performanceInstance.player._id : null, Validators.required],
       rating: [performanceInstance ? performanceInstance.rating : null, Validators.required],
       kills: [performanceInstance ? performanceInstance.kills : null, Validators.required],
       assists: [performanceInstance ? performanceInstance.assists : null, Validators.required],
       deaths: [performanceInstance ? performanceInstance.deaths : null, Validators.required],
-      match:[]
+      match: []
     });
   }
 
   fperformace(i) { return this.performances.controls[i]; }
 
-  salvarPerformace(i){
+  salvarPerformace(i) {
     const formPerformance = this.performances.controls[i];
 
     this.submitted = true;
@@ -184,8 +198,8 @@ export class PartidaFormComponent implements OnInit {
       return;
     }
 
-    formPerformance.value.player = {_id: formPerformance.value.player}
-    formPerformance.value.match = {_id: this.form.get("_id").value}
+    formPerformance.value.player = { _id: formPerformance.value.player }
+    formPerformance.value.match = { _id: this.form.get("_id").value }
 
     if (formPerformance.get("_id").value) {
       //editar
@@ -215,8 +229,6 @@ export class PartidaFormComponent implements OnInit {
             // this.loading = false;
           });
     }
-
-
   }
 
   buscarMembrosTime(_id) {
