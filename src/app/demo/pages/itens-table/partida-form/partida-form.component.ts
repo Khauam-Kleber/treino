@@ -7,6 +7,7 @@ import { TimeService } from "src/app/services/team.service";
 import { ToastrService } from "ngx-toastr";
 import { PerformanceService } from "src/app/services/performance.service";
 import { MatStepper } from "@angular/material/stepper";
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: 'app-partida-form',
@@ -33,24 +34,30 @@ export class PartidaFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.buscarTimesContras(this.usuarioService.userValue.data.teamId);
-
     this.criarForm(this.data.partida);
   }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
   criarForm(partida?) {
     this.form = this.formBuilder.group({
       _id: [partida ? partida._id : null],
       teamAgainst: [partida.teamAgainst ? partida.teamAgainst._id : null, Validators.required],
+      date:[partida && partida.date ? this.convertDateIsoTimezone(partida.date) : (new Date()).toISOString().slice(0, 16), Validators.required],
       scoreboardTeamAgainst: [partida ? partida.scoreboardTeamAgainst : null, Validators.required],
       scoreboardTeamHome: [partida ? partida.scoreboardTeamHome : null, Validators.required],
       learnings: [partida ? partida.learnings : null, Validators.required],
       roundsToObserve: [partida ? partida.roundsToObserve : null, Validators.required]
     });
   }
+
+  convertDateIsoTimezone(dateConvert){
+    var date = new Date(dateConvert);
+    var isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+    return isoDateTime.slice(0, 16);
+  }
+
   get f() { return this.form.controls; }
 
   onNoClick(): void {
@@ -58,8 +65,6 @@ export class PartidaFormComponent implements OnInit {
   }
 
   salvarPartida() {
-    console.log("salvar partida")
-    console.log(this.form.value);
     this.submitted = true;
     if (this.form.invalid) {
       console.log("invalido")
