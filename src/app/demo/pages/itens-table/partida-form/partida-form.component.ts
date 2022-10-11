@@ -43,6 +43,7 @@ export class PartidaFormComponent implements OnInit {
   criarForm(partida?) {
     this.form = this.formBuilder.group({
       _id: [partida ? partida._id : null],
+      teamHome: [{_id: this.usuarioService.userValue.data.teamId}],
       teamAgainst: [partida.teamAgainst ? partida.teamAgainst._id : null, Validators.required],
       date:[partida && partida.date ? this.convertDateIsoTimezone(partida.date) : (new Date()).toISOString().slice(0, 16), Validators.required],
       scoreboardTeamAgainst: [partida ? partida.scoreboardTeamAgainst : null, Validators.required],
@@ -70,6 +71,8 @@ export class PartidaFormComponent implements OnInit {
       console.log("invalido")
       return;
     }
+
+    // this.form.value.teamHome = {_id: this.usuarioService.userValue.data.teamId};
 
     // this.loading = true;
     if (this.form.get("_id").value) {
