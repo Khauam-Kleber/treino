@@ -4,10 +4,11 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { PartidaService } from "src/app/services/partida.service";
 import { UsersService } from "src/app/services/users.service";
 import { TimeService } from "src/app/services/team.service";
-import { ToastrService } from "ngx-toastr";
+// import { ToastrService } from "ngx-toastr";
 import { PerformanceService } from "src/app/services/performance.service";
 import { MatStepper } from "@angular/material/stepper";
 import { formatDate } from "@angular/common";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
   selector: 'app-partida-form',
@@ -29,7 +30,7 @@ export class PartidaFormComponent implements OnInit {
     private timeService: TimeService,
     public dialogRef: MatDialogRef<PartidaFormComponent>,
     public usuarioService: UsersService,
-    private toastr: ToastrService,
+    private notificationService: NotificationService,
     public performanceService: PerformanceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
@@ -77,12 +78,8 @@ export class PartidaFormComponent implements OnInit {
       this.partidaService.update(this.form.get("_id").value, this.form.value)
         .subscribe(
           data => {
-            this.toastr.success('Dados salvos', 'Editado com Sucesso!', {
-              positionClass: "toast-top-center",
-            });
-
+            this.notificationService.showCreateSuccess();
             this.myStepper.next();
-
             this.submitted = false;
           },
           error => {
@@ -94,13 +91,8 @@ export class PartidaFormComponent implements OnInit {
         .subscribe(
           data => {
             this.form.get("_id").setValue(data._id);
-
-            this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
-              positionClass: "toast-top-center",
-            });
-
+            this.notificationService.showCreateSuccess();
             this.myStepper.next();
-
             this.submitted = false;
           },
           error => {
@@ -117,10 +109,8 @@ export class PartidaFormComponent implements OnInit {
         data => {
           this.timesList.push(data);
           this.timesList = [...this.timesList]
-
         },
         error => {
-
           // this.loading = false;
         });
   }
@@ -129,9 +119,7 @@ export class PartidaFormComponent implements OnInit {
     this.timeService.remove(event.value._id)
       .subscribe(
         data => {
-          this.toastr.success('Membro removido com Sucesso', 'Removido!', {
-            positionClass: "toast-top-center",
-          });
+          this.notificationService.showCreateSuccess();
         },
         error => {
 
@@ -162,7 +150,6 @@ export class PartidaFormComponent implements OnInit {
             data.forEach(performanceInstance => {
               this.performances.push(this.criarFormPerformaces(performanceInstance))
             });
-
           },
           error => {
             console.log(error)
@@ -211,9 +198,7 @@ export class PartidaFormComponent implements OnInit {
       this.performanceService.update(formPerformance.get("_id").value, formPerformance.value)
         .subscribe(
           data => {
-            this.toastr.success('Dados salvos', 'Editado com Sucesso!', {
-              positionClass: "toast-top-center",
-            });
+            this.notificationService.showCreateSuccess();
           },
           error => {
             console.log(error)
@@ -224,10 +209,8 @@ export class PartidaFormComponent implements OnInit {
         .subscribe(
           data => {
             this.form.get("_id").setValue(data._id);
+            this.notificationService.showCreateSuccess();
 
-            this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
-              positionClass: "toast-top-center",
-            });
           },
           error => {
             console.log(error)
