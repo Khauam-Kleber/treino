@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './theme/shared/shared.module';
@@ -26,6 +26,10 @@ import { PartidaService } from './services/partida.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+// registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -58,7 +62,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
-
+    // { provide: LOCALE_ID, useValue: 'pt-BR' } ,
     NavigationItem, 
     HttpClientModule,
     PartidaService,

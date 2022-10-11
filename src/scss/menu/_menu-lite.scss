@@ -136,7 +136,7 @@
     position: relative;
     display: flex;
     min-height: $header-height;
-    padding: 0;
+    // padding: 0;
     position: relative;
     top: 0;
     background: transparent;
@@ -356,7 +356,7 @@
                 font-family: "pct";
                 position: absolute;
                 left: -5px;
-                top: $header-height - 10;
+                top: $header-mobile-height - 10;
                 z-index: 1001;
                 font-size: 40px;
                 line-height: 0;
@@ -519,7 +519,7 @@
     align-items: center;
     justify-content: center;
     width: 37px;
-    height: $header-height;
+    height: $header-mobile-height;
     position: absolute;
     right: 0;
     top: 0;
@@ -605,7 +605,7 @@
     }
 
     .scroll-div.navbar-content {
-        height: calc(100vh - #{$header-height});
+        height: calc(100vh - #{$header-mobile-height});
     }
 
     .header-logo {
@@ -613,7 +613,7 @@
         align-items: center;
         display: inline-flex;
         float: left;
-        height: $header-height;
+        height: $header-mobile-height;
         text-align: center;
         width: $Menu-width;
         margin-right: 0;
@@ -642,7 +642,7 @@
         align-items: center;
         justify-content: center;
         width: 37px;
-        height: $header-height;
+        height: $header-mobile-height;
         position: absolute;
         right: 10px;
         top: 0;
@@ -1228,7 +1228,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: $header-height;
+            height: $header-mobile-height;
 
             .mobile-menu {
                 right: auto;
@@ -1583,7 +1583,7 @@ app-nav-group {
             align-items: center;
         }
         .sidenav-horizontal-wrapper{
-            height: $header-height;
+            height: $header-mobile-height;
             flex: 0 1 100%;
             width: 0;
             app-nav-group{
@@ -1689,6 +1689,6 @@ app-nav-group {
   height: calc(100% - 5px);
 }
 .pcoded-navbar .pcoded-inner-navbar>app-nav-group>app-nav-collapse>li.active>a, .pcoded-navbar .pcoded-inner-navbar>app-nav-group>app-nav-collapse>li.pcoded-trigger>a, .pcoded-navbar .pcoded-inner-navbar app-nav-item>li.nav-item.active>a, .pcoded-navbar .pcoded-inner-navbar app-nav-item>li.nav-item.pcoded-trigger>a {
-  background: #333f54;
+  background: #153b75;
   color: #fff;
 }

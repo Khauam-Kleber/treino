@@ -57,7 +57,6 @@ export class ItensTableComponent implements OnInit {
   }
 
   cadastrarPartida(item): void {
-    console.log(item)
     const dialogRef = this.dialog.open(PartidaFormComponent, {
       width: '1000px',
       data: {partida: item},

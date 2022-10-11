@@ -3,13 +3,17 @@
     <ng-template matStepLabel>Partida</ng-template>
     <div mat-dialog-content>
       <form [formGroup]="form" (ngSubmit)="salvarPartida()">
-        <div class="form-group">
-          <label>Time Contra*:</label>
-          <ng-select formControlName="teamAgainst" addTagText="Criar Novo" [addTag]="criarNovoTime.bind(this)"
-            (remove)="removerTime($event)" [multiple]="false"
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-3">
+          <!-- <label>Time Contra*:</label> -->
+          <ng-select fxFlex="45" formControlName="teamAgainst" addTagText="Criar Novo" [addTag]="criarNovoTime.bind(this)"
+            (remove)="removerTime($event)" [multiple]="false" placeholder="Time Contra"
             [ngClass]="{ 'is-invalid-select': submitted && f.teamAgainst.errors }" [items]="timesList" bindLabel="name"
             bindValue="_id">
           </ng-select>
+
+          <input type="hidden" id="timezone" name="timezone" value="-03:00" />
+          <input fxFlex="45" type="datetime-local" formControlName="date" class="form-control"
+          placeholder="Data" [ngClass]="{ 'is-invalid': submitted && f.date.errors }">
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-3">
           <input fxFlex="45" type="number" formControlName="scoreboardTeamAgainst" class="form-control"

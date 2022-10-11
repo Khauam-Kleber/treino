@@ -27,7 +27,8 @@
         8) menu-icon-color
             List of color for sidebar menu items icon colors
 */
-$header-height: 70px;
+$header-height: 20px;
+$header-mobile-height: 70px;
 $Menu-width: 264px;
 $Menu-collapsed-width: 80px;
 
@@ -49,18 +50,18 @@ $inverse-color: $dark-color;
 $theme-border: #eaeaea;
 
 // header
-$brand-background: #3f4d67;
-$header-dark-background: #3f4d67;
+$brand-background: #26508f;
+$header-dark-background: #26508f;
 $header-dark-text-color: #fff;
 $header-light-background: #fff;
-$header-light-text-color: #3f4d67;
+$header-light-text-color: #26508f;
 
 // Menu
 $menu-caption-color: #14171d;
-$menu-dark-background: #3f4d67;
+$menu-dark-background: #26508f;
 $menu-dark-text-color: #a9b7d0;
 $menu-light-background: #fff;
-$menu-light-text-color: #3f4d67;
+$menu-light-text-color: #26508f;
 $menu-active-color: #04a9f5;
 
 // dark layout colors
