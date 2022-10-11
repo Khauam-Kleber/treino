@@ -50,19 +50,19 @@ const NavigationItems = [
     children: [
       {
         id: 'steamItens',
-        title: 'Gerenciar Time',
+        title: 'Time',
         type: 'item',
         url: '/team/form',
         classes: 'nav-item',
-        icon: 'feather icon-server'
+        icon: 'feather icon-users'
       },
       {
         id: 'steamItens',
-        title: 'Gerenciar Partidas',
+        title: 'Partidas',
         type: 'item',
         url: '/itens/steam',
         classes: 'nav-item',
-        icon: 'feather icon-server'
+        icon: 'feather icon-crosshair'
       }
     ]
 },
