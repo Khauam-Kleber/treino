@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
-import { TimeService } from 'src/app/services/time.service';
+import { TimeService } from 'src/app/services/team.service';
 import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
-  selector: 'app-time-form',
-  templateUrl: './time-form.component.html',
-  styleUrls: ['./time-form.component.scss']
+  selector: 'app-team-form',
+  templateUrl: './team-form.component.html',
+  styleUrls: ['./team-form.component.scss']
 })
 export class TimeFormComponent implements OnInit {
 

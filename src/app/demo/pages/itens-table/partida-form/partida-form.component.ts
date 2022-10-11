@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { PartidaService } from "src/app/services/partida.service";
 import { UsersService } from "src/app/services/users.service";
-import { TimeService } from "src/app/services/time.service";
+import { TimeService } from "src/app/services/team.service";
 import { ToastrService } from "ngx-toastr";
 import { PerformanceService } from "src/app/services/performance.service";
 import { MatStepper } from "@angular/material/stepper";
@@ -105,8 +105,8 @@ export class PartidaFormComponent implements OnInit {
     }
   }
 
-  criarNovoTime(time) {
-    let novoTime = { _id: null, name: time, teamOwner: { _id: this.usuarioService.userValue.data.teamId } }
+  criarNovoTime(team) {
+    let novoTime = { _id: null, name: team, teamOwner: { _id: this.usuarioService.userValue.data.teamId } }
     this.timeService.create(novoTime)
       .subscribe(
         data => {

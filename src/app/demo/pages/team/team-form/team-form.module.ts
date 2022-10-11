@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { TimeFormComponent } from './time-form.component';
-import { TimeFormRoutingModule } from './time-form.routing.module';
+import { TimeFormComponent } from './team-form.component';
+import { TimeFormRoutingModule } from './team-form.routing.module';
 
 @NgModule({
   imports: [

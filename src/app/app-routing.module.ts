@@ -34,8 +34,8 @@ const routes: Routes = [
         loadChildren: () => import('./demo/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] 
       },
       {
-        path: 'time',
-        loadChildren: () => import('./demo/pages/time/time.module').then(m => m.TimeModule)
+        path: 'team',
+        loadChildren: () => import('./demo/pages/team/team.module').then(m => m.TimeModule)
       },
       {
         path: 'itens',

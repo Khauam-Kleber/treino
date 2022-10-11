@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TimeFormComponent } from './time-form.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TimeFormComponent
+    children: [
+      {
+        path: 'form',
+        loadChildren: () => import('./team-form/team-form.module').then(m => m.ItensTableModule)
+      }
+    ]
   }
 ];
 
@@ -13,5 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-
-export class TimeFormRoutingModule { }
+export class TimeRoutingModule { }

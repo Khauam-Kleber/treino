@@ -52,7 +52,7 @@ const NavigationItems = [
         id: 'steamItens',
         title: 'Gerenciar Time',
         type: 'item',
-        url: '/time/form',
+        url: '/team/form',
         classes: 'nav-item',
         icon: 'feather icon-server'
       },
