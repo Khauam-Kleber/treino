@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
+import { NotificationService } from 'src/app/services/notification.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class AuthSignupComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private usersService: UsersService,
-        private toastr: ToastrService
+        private notificationService: NotificationService
         //   private alertService: AlertService
     ) {
         // redirect to home if already logged in
@@ -57,25 +57,22 @@ export class AuthSignupComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    if (data.status === 403) {
-                        this.loading = false;
-                        this.toastr.error('Erro!', 'Email já cadastrado', {
-                            positionClass: "toast-top-center",
-                        });
+                    // if (data.status === 403) {
+                    //     this.loading = false;
+                    //     this.toastr.error('Erro!', 'Email já cadastrado', {
+                    //         positionClass: "toast-top-center",
+                    //     });
 
-                    } else {
-                        this.toastr.success('Faça o login!', 'Cadastrado com Sucesso', {
-                            positionClass: "toast-top-center",
-                        });
+                    // } else {
+                        this.notificationService.showCreateSuccess("Faça o login!");
+                       
                         this.router.navigate(['auth/signin']);
-                    }
+                    // }
 
                 },
                 error => {
-                    console.log(error)
-                    this.toastr.error('Erro!', 'Email já cadastrado', {
-                        positionClass: "toast-top-center",
-                    });
+                    console.log(error);
+                    this.notificationService.showError(error ? error : "Verifique seus Dados!")
                     this.loading = false;
                 });
     }

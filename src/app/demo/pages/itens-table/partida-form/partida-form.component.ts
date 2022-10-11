@@ -4,7 +4,6 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { PartidaService } from "src/app/services/partida.service";
 import { UsersService } from "src/app/services/users.service";
 import { TimeService } from "src/app/services/team.service";
-// import { ToastrService } from "ngx-toastr";
 import { PerformanceService } from "src/app/services/performance.service";
 import { MatStepper } from "@angular/material/stepper";
 import { formatDate } from "@angular/common";

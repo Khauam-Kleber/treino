@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
+import { NotificationService } from 'src/app/services/notification.service';
 import { TimeService } from 'src/app/services/team.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -18,7 +18,7 @@ export class TimeFormComponent implements OnInit {
   submitted = false;
   usuariosList = [];
 
-  constructor(private formBuilder: FormBuilder, private timeService: TimeService, private toastr: ToastrService, private usuarioService: UsersService) {
+  constructor(private formBuilder: FormBuilder, private timeService: TimeService, private notificationService: NotificationService, private usuarioService: UsersService) {
     // this.criarForm();
     if (this.usuarioService.userValue.data.teamId) {
       this.buscarMembrosTime(this.usuarioService.userValue.data.teamId);
@@ -64,20 +64,14 @@ export class TimeFormComponent implements OnInit {
         data => {
           this.usuariosList.push(data);
           this.usuariosList = [...this.usuariosList]
-          // this.form.get('users').setValue();
-
           let valoresSelecionados = this.form.get('users').value;
           valoresSelecionados.push(data._id);
           this.form.get('users').setValue(valoresSelecionados)
-
-          // this.toastr.success('Faça o login!', 'Cadastrado com Sucesso', {
-          //     positionClass: "toast-top-center",
-          // });
+          this.notificationService.showCreateSuccess("Faça o login!");
+      
         },
         error => {
-          this.toastr.error("Nome já existe", 'Erro!', {
-            positionClass: "toast-top-center",
-          });
+          this.notificationService.showError("Nome já existe!");
           // this.loading = false;
         });
   }
@@ -88,9 +82,7 @@ export class TimeFormComponent implements OnInit {
     this.usuarioService.remove(event.value._id)
       .subscribe(
         data => {
-          this.toastr.success('Membro removido com Sucesso', 'Removido!', {
-              positionClass: "toast-top-center",
-          });
+          this.notificationService.showDeleteSuccess();
         },
         error => {
           // this.toastr.error("Nome já existe", 'Erro!', {
@@ -127,9 +119,7 @@ export class TimeFormComponent implements OnInit {
         // .pipe(first())
         .subscribe(
           data => {
-            this.toastr.success('Dados salvos', 'Editado com Sucesso!', {
-              positionClass: "toast-top-center",
-            });
+            this.notificationService.showUpdateSuccess();
           },
           error => {
             console.log(error)
@@ -152,10 +142,8 @@ export class TimeFormComponent implements OnInit {
             let valoresSelecionados = this.form.get('users').value;
             valoresSelecionados.push(data.users[0]._id);
             this.form.get('users').setValue(valoresSelecionados)
+            this.notificationService.showCreateSuccess();
 
-            this.toastr.success('Dados salvos', 'Cadastrado com Sucesso!', {
-              positionClass: "toast-top-center",
-            });
           },
           error => {
             console.log(error)
