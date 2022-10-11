@@ -1,20 +1,22 @@
-<!-- 
+
 <div class="div-refresh">
-  <i class="feather icon-refresh-cw icon-refresh" (click)="this.itensService.buscarListaFavoritos(true)"></i>
-  <h3 class="mb-4 text-center rendimento" >Rendimento Total: R$ {{itensService.valorRendimentoTotal | number : '.2-2'}}</h3> 
+  <!-- <i class="feather icon-refresh-cw icon-refresh" (click)="this.itensService.buscarListaFavoritos(true)"></i> -->
+  <!-- <h3 class="mb-4 text-center rendimento" >Rendimento Total: R$ {{itensService.valorRendimentoTotal | number : '.2-2'}}</h3>  -->
 </div>
-<div class="row">
-  <div  *ngFor="let item of itensService.listFavoritesUser" class="col-md-6 col-xl-4">
-    <app-card [hidHeader]="false" [cardTitle]="item.name" [item]="item" (editItemEvent)="dialogEditItem($event)"  (removeItemEvent)="removeItemCard($event)"> 
-        <div class="column d-flex align-items-left">
-          <div class="col-4">
-            <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-shopping-cart text-c-blue f-30 m-r-10"></i>{{item.lowest_price}}</h3>
-            <div class="col-8 text-left">
-              <p class="m-b-0">Preço</p>
+<div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="space-evenly center" >
+  <!-- class="col-md-6 col-xl-4" -->
+  <div  *ngFor="let item of listCardsShow" fxFlex="15" fxFlex.xs="50" >
+    <!-- {{item.name}}   {{item.value}} (editItemEvent)="dialogEditItem($event)"  (removeItemEvent)="removeItemCard($event)" -->
+    <app-card [hidHeader]="false" [cardTitle]="item.name" [item]="item" > 
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+          <div fxLayout="column" fxLayoutAlign="space-evenly center">
+            <h3 fxFlex="100"><i class="feather icon-shopping-cart text-c-blue f-30 m-r-10"></i>{{item.value}}</h3>
+            <div fxFlex="100">
+              <!-- <p class="m-b-0">Vitórias</p> -->
             </div>
           </div>
 
-          <div class="col-4">
+          <!-- <div class="col-4">
             <h3 *ngIf="item.pricePurchased" class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-target text-c-green f-30 m-r-10"></i>{{(item.lowest_price - item.pricePurchased) * item.quantityPurchased | number : '.2-2'}}</h3>
             <h3  *ngIf="!item.pricePurchased" class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-target text-c-green f-30 m-r-10"></i>N/A</h3>
             <div class="col-8 text-left">
@@ -27,8 +29,8 @@
             <div class="col-12 text-left">
               <p class="m-b-0">Volume 24h</p>
             </div>
-          </div>
+          </div> -->
         </div>
     </app-card>
   </div>
-</div> -->
+</div>

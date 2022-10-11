@@ -34,7 +34,7 @@ export class UsersService {
                 //       return of(error);
                 // }),
                 map(res => {
-                    console.log(res)
+                    // console.log(res)
                     this.updateCurrentUser(res);
                     return res;
                 }));

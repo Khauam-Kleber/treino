@@ -21,6 +21,10 @@ export class PartidaService { //matches service
     return this.http.get<any[]>(`${environment.apiUrl}/matches`,);
   }
 
+  findDashboardInfos() {
+    return this.http.get<any[]>(`${environment.apiUrl}/matches/find-dashboard-info`,);
+  }
+
   buscarPartidasTime(filter = '', id?: string, sort = 'id', sortOrder = 'desc', pageNumber = 0, pageSize = 10): Observable<any> {
     let stringBusca = '';
     if (filter) {

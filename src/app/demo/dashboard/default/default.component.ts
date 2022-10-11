@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PartidaService } from 'src/app/services/partida.service.js';
 import { ActivatedRoute } from '@angular/router';
-import { SkinDialogForm } from '../../pages/itens-table/skin-dialog-form/skin-dialog-form.component';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -12,17 +11,14 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class DefaultComponent implements OnInit {
 
-  constructor(public partidaService: PartidaService,  private route: ActivatedRoute, public dialog: MatDialog) 
+  listCardsShow = []
+
+  constructor(public matchService: PartidaService,  private route: ActivatedRoute, public dialog: MatDialog) 
   {    
- 
+    this.matchService.findDashboardInfos().subscribe((response:any) => this.listCardsShow = response );
   }
   
-  // console.log(this.route.snapshot.paramMap.get("id"))
   ngOnInit() { 
-    //para cada card buscar valores da steam em tempo real?
-  
-    // this.itensService.buscarListaFavoritos(true);
-
      
   }
 
