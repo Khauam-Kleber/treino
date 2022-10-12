@@ -1,3 +1,10 @@
-::ng-deep .mat-dialog-container {
-    padding: 0px !important;
- }
+::ng-deep {
+    .mat-dialog-container {
+        padding: 0px !important;
+    }
+
+    .ng-select .ng-select-container {
+        height: 45px !important;
+        background-color: #f4f7fa;
+    }
+}

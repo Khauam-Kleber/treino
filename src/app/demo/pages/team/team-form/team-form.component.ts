@@ -77,19 +77,17 @@ export class TimeFormComponent implements OnInit {
   }
 
   removerMembro(event) {
-    console.log(event);
+    // console.log(event);
 
-    this.usuarioService.remove(event.value._id)
-      .subscribe(
-        data => {
-          this.notificationService.showDeleteSuccess();
-        },
-        error => {
-          // this.toastr.error("Nome já existe", 'Erro!', {
-          //   positionClass: "toast-top-center",
-          // });
-          // this.loading = false;
-        });
+    // this.usuarioService.remove(event.value._id)
+    //   .subscribe(
+    //     data => {
+    //       this.notificationService.showDeleteSuccess();
+    //     },
+    //     error => {
+    //       console.log(error)
+    //       this.notificationService.showError(error);
+    //     });
   }
 
 
