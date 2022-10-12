@@ -38,8 +38,8 @@ const routes: Routes = [
         loadChildren: () => import('./demo/pages/team/team.module').then(m => m.TimeModule)
       },
       {
-        path: 'itens',
-        loadChildren: () => import('./demo/pages/itens-table/itens.module').then(m => m.ItensModule)
+        path: 'matches',
+        loadChildren: () => import('./demo/pages/matches/matches.module').then(m => m.MatchesModule)
       },
       /*
       {

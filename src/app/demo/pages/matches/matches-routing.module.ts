@@ -6,8 +6,8 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'steam',
-        loadChildren: () => import('./itens-table/itens-table.module').then(m => m.ItensTableModule)
+        path: 'table',
+        loadChildren: () => import('./matches-table/matches-table.module').then(m => m.MatchesTableModule)
       }
     ]
   }
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ItensRoutingModule { }
+export class MatchesRoutingModule { }

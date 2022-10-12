@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { TimeFormComponent } from './team-form.component';
-import { TimeFormRoutingModule } from './team-form.routing.module';
+import { MatchesTableRoutingModule } from './matches-table.routing.module';
+import { MatchesTableComponent } from './matches-table.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    TimeFormRoutingModule,
+    MatchesTableRoutingModule,
     SharedModule,
     CommonModule , 
   ],
-  declarations: [TimeFormComponent],
+  declarations: [MatchesTableComponent],
 
 })
 export class MatchesTableModule { }

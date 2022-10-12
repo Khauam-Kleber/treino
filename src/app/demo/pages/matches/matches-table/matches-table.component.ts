@@ -4,14 +4,14 @@ import {MatSort, Sort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { PartidaService } from 'src/app/services/partida.service';
-import { PartidaFormComponent } from '../partida-form/partida-form.component';
+import { MatchFormComponent } from '../match-form/match-form.component';
 //https://steamcommunity.com/sharedfiles/filedetails/?id=2164283242 drop ativo de caixa
 @Component({
-  selector: 'itens-table',
-  templateUrl: './itens-table.component.html',
-  styleUrls: ['./itens-table.component.scss']
+  selector: 'matches-table',
+  templateUrl: './matches-table.component.html',
+  styleUrls: ['./matches-table.component.scss']
 })
-export class ItensTableComponent implements OnInit {
+export class MatchesTableComponent implements OnInit {
   
   // displayedColumns: string[] = ['favoritar', 'name', 'media7dias', 'media30dias']; //usar quando buscar do banco?
 
@@ -57,7 +57,7 @@ export class ItensTableComponent implements OnInit {
   }
 
   cadastrarPartida(item): void {
-    const dialogRef = this.dialog.open(PartidaFormComponent, {
+    const dialogRef = this.dialog.open(MatchFormComponent, {
       width: '1000px',
       data: {partida: item},
     });

@@ -43,13 +43,13 @@ const NavigationItems = [
     ]
   },
   {
-    id: 'itens',
+    id: 'manager',
     title: 'Configuração',
     type: 'group',
     icon: 'icon-group',
     children: [
       {
-        id: 'steamItens',
+        id: 'team',
         title: 'Time',
         type: 'item',
         url: '/team/form',
@@ -57,10 +57,10 @@ const NavigationItems = [
         icon: 'feather icon-users'
       },
       {
-        id: 'steamItens',
+        id: 'matches',
         title: 'Partidas',
         type: 'item',
-        url: '/itens/steam',
+        url: '/matches/table',
         classes: 'nav-item',
         icon: 'feather icon-crosshair'
       }

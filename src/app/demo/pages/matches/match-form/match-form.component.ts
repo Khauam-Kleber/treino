@@ -6,15 +6,14 @@ import { UsersService } from "src/app/services/users.service";
 import { TimeService } from "src/app/services/team.service";
 import { PerformanceService } from "src/app/services/performance.service";
 import { MatStepper } from "@angular/material/stepper";
-import { formatDate } from "@angular/common";
 import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
-  selector: 'app-partida-form',
-  templateUrl: './partida-form.component.html',
-  styleUrls: ['./partida-form.component.scss']
+  selector: 'app-match-form',
+  templateUrl: './match-form.component.html',
+  styleUrls: ['./match-form.component.scss']
 })
-export class PartidaFormComponent implements OnInit {
+export class MatchFormComponent implements OnInit {
   form;
   timesList = [];
   submitted = false;
@@ -27,7 +26,7 @@ export class PartidaFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private partidaService: PartidaService,
     private timeService: TimeService,
-    public dialogRef: MatDialogRef<PartidaFormComponent>,
+    public dialogRef: MatDialogRef<MatchFormComponent>,
     public usuarioService: UsersService,
     private notificationService: NotificationService,
     public performanceService: PerformanceService,

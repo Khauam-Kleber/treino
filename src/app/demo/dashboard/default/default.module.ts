@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DefaultRoutingModule } from './default-routing.module';
 import {SharedModule} from '../../../theme/shared/shared.module';
 import { DefaultComponent } from './default.component';
-import { SkinDialogForm } from '../../pages/itens-table/skin-dialog-form/skin-dialog-form.component';
+// import { SkinDialogForm } from '../../pages/matches-table/skin-dialog-form/skin-dialog-form.component';
 
 @NgModule({
   imports: [
@@ -12,6 +12,6 @@ import { SkinDialogForm } from '../../pages/itens-table/skin-dialog-form/skin-di
     DefaultRoutingModule,
     SharedModule
   ],
-  declarations: [DefaultComponent, SkinDialogForm]
+  declarations: [DefaultComponent]
 })
 export class DefaultModule { }

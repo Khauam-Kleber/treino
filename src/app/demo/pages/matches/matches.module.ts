@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItensRoutingModule } from './itens-routing.module';
+import { MatchesRoutingModule } from './matches-routing.module';
 import { PartidaService } from 'src/app/services/partida.service';
-import { PartidaFormComponent } from './partida-form/partida-form.component';
+import { MatchFormComponent } from './match-form/match-form.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { MatStepperModule } from '@angular/material/stepper';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    ItensRoutingModule,
+    MatchesRoutingModule,
     SharedModule,
   ],
-  declarations: [PartidaFormComponent],
+  declarations: [MatchFormComponent],
   providers:[
     PartidaService
   ]
 })
-export class ItensModule { }
+export class MatchesModule { }

@@ -7,7 +7,7 @@ const routes: Routes = [
     children: [
       {
         path: 'form',
-        loadChildren: () => import('./team-form/team-form.module').then(m => m.ItensTableModule)
+        loadChildren: () => import('./team-form/team-form.module').then(m => m.MatchesTableModule)
       }
     ]
   }
