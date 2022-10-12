@@ -4,7 +4,7 @@
       <ng-template matStepLabel>Partida</ng-template>
       <div mat-dialog-content>
         <form [formGroup]="form" (ngSubmit)="salvarPartida()">
-          <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-3">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="mb-3">
             <!-- <label>Time Contra*:</label> -->
             <ng-select fxFlex="45" formControlName="teamAgainst" addTagText="Criar Novo" [addTag]="criarNovoTime.bind(this)"
               (remove)="removerTime($event)" [multiple]="false" placeholder="Time Contra"
