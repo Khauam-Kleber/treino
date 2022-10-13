@@ -67,7 +67,7 @@ export class TimeFormComponent implements OnInit {
           let valoresSelecionados = this.form.get('users').value;
           valoresSelecionados.push(data._id);
           this.form.get('users').setValue(valoresSelecionados)
-          this.notificationService.showCreateSuccess("Faça o login!");
+          this.notificationService.showCreateSuccess();
       
         },
         error => {
