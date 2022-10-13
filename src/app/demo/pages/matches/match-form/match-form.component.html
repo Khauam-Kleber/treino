@@ -43,16 +43,16 @@
               [ngClass]="{ 'is-invalid-select': submitted && performance.controls.player.errors }">
             </ng-select>
 
-            <input fxFlex="15" type="rating" formControlName="rating" class="form-control" placeholder="Rating"
+            <input fxFlex="15" type="number" formControlName="rating" class="form-control" placeholder="Avaliação"
               [ngClass]="{ 'is-invalid': submitted && performance.controls.rating.errors }">
 
-            <input fxFlex="15" type="kills" formControlName="kills" class="form-control" placeholder="Kills"
+            <input fxFlex="15" type="number" formControlName="kills" class="form-control" placeholder="Kills"
               [ngClass]="{ 'is-invalid': submitted && performance.controls.kills.errors }">
 
-            <input fxFlex="15" type="assists" formControlName="assists" class="form-control" placeholder="Assists"
+            <input fxFlex="15" type="number" formControlName="assists" class="form-control" placeholder="Assists"
               [ngClass]="{ 'is-invalid': submitted && performance.controls.assists.errors }">
 
-            <input fxFlex="15" type="deaths" formControlName="deaths" class="form-control" placeholder="Deaths"
+            <input fxFlex="15" type="number" formControlName="deaths" class="form-control" placeholder="Deaths"
               [ngClass]="{ 'is-invalid': submitted && performance.controls.deaths.errors }">
 
             <button fxFlex="15" class="btn btn-primary" type="submit">

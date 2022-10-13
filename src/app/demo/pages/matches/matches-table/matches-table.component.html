@@ -1,5 +1,5 @@
 
-<div  fxLayout="row"  fxLayoutAlign="end center" >
+<div *ngIf="usuarioService.userValue.data.teamId" fxLayout="row"  fxLayoutAlign="end center" >
   <button type="button" class="btn btn-info"  (click)="cadastrarPartida($event)" ngbTooltip="btn-info">Cadastrar</button>
 </div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort  flex="100">
@@ -34,7 +34,11 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="cadastrarPartida(row)"></tr>
+
 </table>
+<mat-paginator #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+</mat-paginator>
 
 <!-- <div class="width100" style="display:flex"> 
     <input [(ngModel)]="term" #ctrl="ngModel"  (keydown)="fazBuscaItens()" class="width50 espacamento"> 

@@ -17,12 +17,19 @@ export class PartidaService { //matches service
     return this.http.post<any>(`${environment.apiUrl}/matches`, match)
   }
 
-  getAll() {
-    return this.http.get<any[]>(`${environment.apiUrl}/matches`,);
+  findMatchesPagination(pageNumber = 1, pageSize = 10) {
+    return this.http.get<any[]>(`${environment.apiUrl}/matches/find-pagination-info`, {
+      params: new HttpParams()
+          // .set('sort', sort + ',' + sortOrder)
+          .set('page', pageNumber.toString())
+          .set('size', pageSize.toString())
+      }).pipe(map(res => {
+          return res;
+      }));
   }
 
   findDashboardInfos() {
-    return this.http.get<any[]>(`${environment.apiUrl}/matches/find-dashboard-info`,);
+    return this.http.get<any[]>(`${environment.apiUrl}/matches/find-dashboard-info`);
   }
 
   buscarPartidasTime(filter = '', id?: string, sort = 'id', sortOrder = 'desc', pageNumber = 0, pageSize = 10): Observable<any> {
@@ -41,7 +48,6 @@ export class PartidaService { //matches service
             .set('page', pageNumber.toString())
             .set('size', pageSize.toString())
         }).pipe(map(res => {
-            // if (returnContent) return res.content;
             return res;
         })
     );

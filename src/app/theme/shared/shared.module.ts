@@ -23,6 +23,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 //vou liberando os imports conforme preciso
 
@@ -51,7 +53,7 @@ import { MatButtonModule } from '@angular/material/button';
 // import {MatMenuModule} from '@angular/material/menu';
 // import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 // import {MatPaginatorModule} from '@angular/material/paginator';
-// import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 // import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // import {MatRadioModule} from '@angular/material/radio';
 // import {MatSidenavModule} from '@angular/material/sidenav';
@@ -93,6 +95,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
 
     // A11yModule,
     // CdkAccordionModule,
@@ -169,6 +173,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatStepperModule,
     MatInputModule,
     MatButtonModule,
+    MatPaginatorModule, 
+    MatProgressBarModule,
 
     // A11yModule,
     // CdkAccordionModule,

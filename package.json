@@ -1,6 +1,6 @@
 {
-  "name": "ng-datta-able",
-  "version": "0.0.0",
+  "name": "bootcamp-control",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

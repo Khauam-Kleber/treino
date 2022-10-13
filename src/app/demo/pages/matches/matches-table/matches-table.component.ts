@@ -1,35 +1,40 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
 import { PartidaService } from 'src/app/services/partida.service';
+import { UsersService } from 'src/app/services/users.service';
 import { MatchFormComponent } from '../match-form/match-form.component';
-//https://steamcommunity.com/sharedfiles/filedetails/?id=2164283242 drop ativo de caixa
+
 @Component({
   selector: 'matches-table',
   templateUrl: './matches-table.component.html',
   styleUrls: ['./matches-table.component.scss']
 })
 export class MatchesTableComponent implements OnInit {
-  
-  // displayedColumns: string[] = ['favoritar', 'name', 'media7dias', 'media30dias']; //usar quando buscar do banco?
 
   displayedColumns: string[] = ['timeContra', 'placar', 'roundsToObserve', 'learnings'];
-
+  totalRows = 0;
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [2, 5, 10, 25, 100];
   dataSource = new MatTableDataSource<any>();
+
   playerName: string = '';
   term: string = '';
   tipoItemFiltro: any = 1;
-  // tiposItens = [{name: 'Nada', value: 0}, {name: 'Caixa', value: 1},  {name: 'Capsula', value: 2}, {name: 'Adesivo', value: 3},  {name: 'Agentes', value: 4}]
   private sort = new MatSort();
+
   @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSourceAttributes();
   }
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
   
-  constructor(private partidaService:PartidaService, public itensService: PartidaService,  public dialog: MatDialog) {}
- 
+  constructor(private partidaService:PartidaService,  public dialog: MatDialog, public usuarioService: UsersService) {}
 
   ngOnInit() {
       this.fazBuscaItens();
@@ -37,17 +42,28 @@ export class MatchesTableComponent implements OnInit {
 
   setDataSourceAttributes() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+
+  }
+
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.fazBuscaItens();
   }
 
   ngAfterViewInit() {
-    // this.itensService.buscarListaFavoritos();
     this.dataSource.sort = this.sort
   }
 
 
   fazBuscaItens(){
-    // this.term
-    this.partidaService.getAll().subscribe((response:any) => this.dataSource = new MatTableDataSource(response) );
+    this.partidaService.findMatchesPagination(this.currentPage + 1, this.pageSize).subscribe((response:any) => { 
+      this.dataSource = new MatTableDataSource(response.data) 
+      this.paginator.pageIndex = this.currentPage;
+      this.paginator.length = response.count;
+    });
     this.dataSource.sort = this.sort;  
 
     setTimeout(() => {
@@ -64,8 +80,6 @@ export class MatchesTableComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.fazBuscaItens();
-      //atualizar table
-      // this.itensService.buscarListaFavoritos(true);
     });
   }
 
